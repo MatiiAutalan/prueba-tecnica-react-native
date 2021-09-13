@@ -2,16 +2,38 @@ import React, { Component } from "react";
 import { View, StyleSheet,TouchableHighlight, TextInput, Text } from "react-native";
 
 class Home extends Component {
-    state = {url: ""} 
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+        url: ""
+      } 
+    }
+    changeUrl(url){
+      this.setState({url})
+      
+    }
+
+    buttonPressed(){
+      var saveURL= [];
+      saveURL.push(this.state.url)
+      return saveURL;
+    }
+
     render() {
-       
       return (
         <View style= {styles.container}>
           <View>
             <TextInput
+              placeholder= "Inglesa tu URL"
+              value={this.state.url}
               style={styles.input}
+              onChangeText={(url)=> this.changeUrl(url)} 
             />
-            <TouchableHighlight style= {styles.containerBotton}>
+            <TouchableHighlight 
+            style= {styles.containerBotton}
+            onPress= { () => this.buttonPressed()}
+            >
               <Text style={styles.botton}>Mostrar directorio</Text>
             </TouchableHighlight>
           </View>
@@ -28,10 +50,11 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: 30,
+    height: 35,
     width: 250,
     margin: 12,
-    borderWidth: 2,
+    borderColor: '#4b0082',
+    borderWidth: 3,
     padding: 10,
     fontWeight: "bold",
     backgroundColor: "#ffff",
