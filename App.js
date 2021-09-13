@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import ImputUrl from './components/ImputUrl'
+import Home from './components/Home'
 
-export default function App() {
+export default class App extends Component{
+
+  render() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}> ¡Mira tus directorios!</Text>
-      <ImputUrl/>
-      <View style={styles.title}>
-
-      </View>
+      <Home/>
     </View>
   );
+}
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e90ff',
-    shadowColor: 1,
+    backgroundColor: '#6495ed',
     alignItems:'center'
   },
 
