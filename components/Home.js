@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet,TouchableHighlight, TextInput, Text } from "react-native";
+import TreeDirectory from './TreeDirectory'
 
 class Home extends Component {
     constructor(props) {
@@ -11,13 +12,6 @@ class Home extends Component {
     }
     changeUrl(url){
       this.setState({url})
-      
-    }
-
-    buttonPressed(){
-      var saveURL= [];
-      saveURL.push(this.state.url)
-      return saveURL;
     }
 
     render() {
@@ -32,11 +26,11 @@ class Home extends Component {
             />
             <TouchableHighlight 
             style= {styles.containerBotton}
-            onPress= { () => this.buttonPressed()}
             >
               <Text style={styles.botton}>Mostrar directorio</Text>
             </TouchableHighlight>
           </View>
+          <TreeDirectory></TreeDirectory>
         </View>
       )
     }
