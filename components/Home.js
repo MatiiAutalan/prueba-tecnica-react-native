@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet,TouchableHighlight, TextInput, Text } from "react-native";
-import TreeDirectory from './TreeDirectory'
+import DirectoryTree from './TreeDirectory'
 
 class Home extends Component {
     constructor(props) {
@@ -10,6 +10,8 @@ class Home extends Component {
         url: ""
       } 
     }
+
+
     changeUrl(url){
       this.setState({url})
     }
@@ -27,10 +29,10 @@ class Home extends Component {
             <TouchableHighlight 
             style= {styles.containerBotton}
             >
-              <Text style={styles.botton}>Mostrar directorio</Text>
+              <Text style={styles.botton}> Mostrar directorio</Text>
             </TouchableHighlight>
           </View>
-          <TreeDirectory></TreeDirectory>
+          <DirectoryTree></DirectoryTree>
         </View>
       )
     }
