@@ -1,41 +1,44 @@
-import React, { Component } from "react";
-import { View, StyleSheet,TouchableHighlight, TextInput, Text } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet,TouchableHighlight, TextInput, Text, Alert} from "react-native";
 import DirectoryTree from './TreeDirectory'
 
-class Home extends Component {
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-        url: ""
-      } 
-    }
+const Home = () =>{
+      const [url, setUrl] = useState("")
+      const [directoryTree, setDirectory] = useState([])
 
+      const getDirectoryTree = async () => {
+        if (url !== "") {
+          try {
+            const data = await fetch(url);
+            const directoryTree = await data.json();
+            setDirectory(directoryTree)
+          } catch (error) {
+            Alert.alert(
+              "Hubo un error al obtener los datos. Por favor intentar nuevamente"
+            );
+          }
+        }
+      };
 
-    changeUrl(url){
-      this.setState({url})
-    }
-
-    render() {
       return (
         <View style= {styles.container}>
           <View>
             <TextInput
               placeholder= "Inglesa tu URL"
-              value={this.state.url}
+              onChangeText={url => setUrl(url)}
               style={styles.input}
-              onChangeText={(url)=> this.changeUrl(url)} 
             />
             <TouchableHighlight 
             style= {styles.containerBotton}
+            onPress= {getDirectoryTree}
             >
               <Text style={styles.botton}> Mostrar directorio</Text>
             </TouchableHighlight>
           </View>
-          <DirectoryTree></DirectoryTree>
+          <DirectoryTree directoryTree= {directoryTree} ></DirectoryTree>
         </View>
       )
-    }
+
 }
 
 const styles = StyleSheet.create({
