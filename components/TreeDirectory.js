@@ -39,7 +39,9 @@ function DirectoryTree({ directoryTree }) {
               source={{ uri: branch.type === 'directory' ? '../assets/folder.png' : '../assets/file.png' }} 
               style={styles.image}
               resizeMode= 'contain' />
-              <Text style= {branch.type === 'directory' ? styles.nameFolder : styles.nameFile}> {branch.name}</Text>
+              <Text style= {branch.type === 'directory' ? styles.nameFolder : styles.nameFile}> 
+              {branch.type === 'directory' ? ">"+branch.name : "*" + branch.name + "_" + branch.type }
+              </Text>
             </View>
           </View>
         ))}
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
 
   nameFile: {
     textTransform: 'lowercase',
-    fontSize: 10,
+    fontSize: 12,
     fontStyle: 'italic'
   }
 });
