@@ -1,24 +1,24 @@
 import React, { useCallback, useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image} from "react-native";
 
 const tree = [];
 
 function DirectoryTree({ directoryTree }) {
-  const directoryTreeMapper = useCallback((directoryArray, subDirectiorio) => {
+  const directoryTreeMapper = useCallback((directoryArray, subDirectory) => {
     directoryArray.forEach((directory) => {
       if (directory.type === "directory") {
         tree.push({
           type: directory.type,
-          index: subDirectiorio,
+          index: subDirectory,
           name: directory.name,
         });
         if (directory.files.length > 0) {
-          directoryTreeMapper(directory.files, subDirectiorio + 1);
+          directoryTreeMapper(directory.files, subDirectory + 1);
         }
       } else {
         tree.push({
           type: directory.type,
-          index: subDirectiorio,
+          index: subDirectory,
           name: directory.name,
         });
       }
@@ -30,12 +30,17 @@ function DirectoryTree({ directoryTree }) {
   }, [directoryTree, directoryTreeMapper]);
 
   return (
-    <View>
+    <View style={styles.container}>
       {tree.length > 0 &&
-        tree.map((branch, index) => (
-          <View key={index} style={{ marginLeft: 15 * branch.index }}>
-            <Text>{branch.type}</Text>
-            <Text>{branch.name}</Text>
+        tree.map((branch, index) => ( 
+          <View key={index} style={{ marginLeft: 25 * branch.index }}>
+            <View style={branch.type === 'directory' ? styles.folder : styles.file}>
+              <Image 
+              source={{ uri: branch.type === 'directory' ? '../assets/folder.png' : '../assets/file.png' }} 
+              style={styles.image}
+              resizeMode= 'contain' />
+              <Text style= {branch.type === 'directory' ? styles.nameFolder : styles.nameFile}> {branch.name}</Text>
+            </View>
           </View>
         ))}
     </View>
@@ -45,17 +50,43 @@ function DirectoryTree({ directoryTree }) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 15,
+    width: 300,
+    flex: 1 ,
+    alignItems: 'center',
   },
 
-  directories: {},
+  folder: {
+    flex: 1,
+    flexDirection: 'row',
+    width: 250
+  },
 
   file: {
-    marginLeft: 20,
+    flex: 1,
+    flexDirection: 'row',
+    width: 250
   },
 
   files: {
     marginLeft: 20,
   },
+
+  image:{
+    width: 25,
+    height: 25,
+  },
+
+  nameFolder: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 15
+  },
+
+  nameFile: {
+    textTransform: 'lowercase',
+    fontSize: 10,
+    fontStyle: 'italic'
+  }
 });
 
 export default DirectoryTree;
