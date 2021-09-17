@@ -7,7 +7,7 @@ import {
   Text,
   Alert,
 } from "react-native";
-import DirectoryTree from "./TreeDirectory";
+import DirectoryTree from "../components/DirectoryTree";
 
 const Home = () => {
   const [url, setUrl] = useState("");
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4b0082",
     color: "#ffff",
     fontWeight: "bold",
+    borderRadius: 14
   },
 
   containerTree: {
